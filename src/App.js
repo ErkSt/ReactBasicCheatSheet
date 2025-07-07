@@ -17,6 +17,25 @@ class Paragraph extends Component {
   }
 }
 
+class BoldTextSpan extends Component{
+  render(){
+    return <span ><b > { this.props.content } </b></span>
+  }
+}
+
+class CommonTextSpan extends Component{
+  render(){
+    return <span> { this.props.content } </span>
+  }
+}
+
+function RenderizadoCondicionalDeTexto(letrasRojas, content){
+  if(letrasRojas){
+    return <BoldTextSpan content= { content } />
+  }
+  return <CommonTextSpan content= { content } />
+}
+
 class CustomDivOne extends Component{
 
   constructor(props){
@@ -35,7 +54,8 @@ class CustomDivOne extends Component{
       Array,
       Function,
       Object,
-      CustomComponent
+      CustomComponent,
+      BoldText
     } = this.props;
     
     const MappedNumbers = Array.map(Function);
@@ -45,7 +65,7 @@ class CustomDivOne extends Component{
       <p> { Object.key } </p>
       { CustomComponent }
 
-      <p> { this.state.contador } </p>
+      {RenderizadoCondicionalDeTexto(BoldText, this.state.contador)}
       <Paragraph text= { this.state.contador } />
     </div>
   }
@@ -55,7 +75,8 @@ class CustomDivOne extends Component{
 CustomDivOne.defaultProps = {
   Array: [ 1,2,3 ],
   CustomComponent: '',
-  ContadorInicial: 1
+  ContadorInicial: 1,
+  BoldText: false
 }
 
 function App() {
@@ -68,12 +89,13 @@ function App() {
       </header>
       <CustomDivOne 
         Array = {[ 1, 2, 3 , 4]} 
-        Object = {{ key: 'value of js object'}}
+        BoldText = { true }
+        CustomComponent = { <h3> This is a Custom React Component </h3> }
         Function = { function(value){ 
           return value * 2;
         } }
-        CustomComponent = { <h3> This is a Custom React Component </h3> } />
-        
+        Object = {{ key: 'value of js object'}}
+      />  
     </div>
   );
 }
