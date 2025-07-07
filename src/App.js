@@ -11,13 +11,26 @@ class HelloWorld extends Component{
 
 class Paragraph extends Component {
   render (){
+    //para visualizar el flujo de renderizado
+    console.log("render de Paragraph")
     return <p> { this.props.text } </p>
   }
 }
 
 class CustomDivOne extends Component{
-  
+
+  constructor(props){
+      super(props);
+      this.state = { contador: this.props.ContadorInicial };
+      setInterval(() => {
+        this.setState({ contador: this.state.contador + 1 })
+      }, 1000);
+    }
+
   render(){
+    //para visualizar el flujo de renderizado
+    console.log("render de custom div");
+
     const {
       Array,
       Function,
@@ -31,6 +44,9 @@ class CustomDivOne extends Component{
       <p> { MappedNumbers.join(', ') } </p>
       <p> { Object.key } </p>
       { CustomComponent }
+
+      <p> { this.state.contador } </p>
+      <Paragraph text= { this.state.contador } />
     </div>
   }
 } 
@@ -38,7 +54,8 @@ class CustomDivOne extends Component{
 //definir valores por defecto
 CustomDivOne.defaultProps = {
   Array: [ 1,2,3 ],
-  CustomComponent: ''
+  CustomComponent: '',
+  ContadorInicial: 1
 }
 
 function App() {
@@ -52,6 +69,9 @@ function App() {
       <CustomDivOne 
         Array = {[ 1, 2, 3 , 4]} 
         Object = {{ key: 'value of js object'}}
+        Function = { function(value){ 
+          return value * 2;
+        } }
         CustomComponent = { <h3> This is a Custom React Component </h3> } />
         
     </div>
