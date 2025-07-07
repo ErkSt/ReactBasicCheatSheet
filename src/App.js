@@ -35,6 +35,11 @@ class CustomDivOne extends Component{
   }
 } 
 
+//definir valores por defecto
+CustomDivOne.defaultProps = {
+  Array: [ 1,2,3 ],
+  CustomComponent: ''
+}
 
 function App() {
   return (
