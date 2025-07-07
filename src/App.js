@@ -29,13 +29,6 @@ class CommonTextSpan extends Component{
   }
 }
 
-function RenderizadoCondicionalDeTexto(letrasRojas, content){
-  if(letrasRojas){
-    return <BoldTextSpan content= { content } />
-  }
-  return <CommonTextSpan content= { content } />
-}
-
 class CustomDivOne extends Component{
 
   constructor(props){
@@ -61,11 +54,23 @@ class CustomDivOne extends Component{
     const MappedNumbers = Array.map(Function);
 
     return <div>
-      <p> { MappedNumbers.join(', ') } </p>
+      <p> { 
+        Array.map((number, index) => {
+          return <p key={index} > { 'Número: ' + number } </p>
+      
+        })
+      } </p>
+
       <p> { Object.key } </p>
+      
       { CustomComponent }
 
-      {RenderizadoCondicionalDeTexto(BoldText, this.state.contador)}
+      {
+        BoldText ?  
+        <BoldTextSpan content= { this.state.contador } /> :
+        <CommonTextSpan content= { this.state.contador } />
+      }
+
       <Paragraph text= { this.state.contador } />
     </div>
   }
